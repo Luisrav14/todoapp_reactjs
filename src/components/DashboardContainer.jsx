@@ -147,7 +147,7 @@ const DashboardContainer = ({ children }) => {
         </div>
       </aside>
 
-      <div className="p-4 sm:ml-64 bg-default-100" style={{ height: "100vh" }}>
+      <div className="p-4 sm:ml-64 bg-default-100" style={{ minHeight: "100vh" }}>
         <div className="p-4 mt-14">{children}</div>
       </div>
     </>

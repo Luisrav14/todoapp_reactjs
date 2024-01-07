@@ -44,11 +44,11 @@ const NavbarDashboard = () => {
           <div className="flex">
             <Dropdown backdrop="blur">
               <DropdownTrigger>
-                <Button variant="shadow" color="primary">
+                <Button variant="flat" color="primary">
                   Options
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu variant="faded" aria-label="Static Actions">
+              <DropdownMenu variant="faded">
                 <DropdownItem key="new" endContent={<SwitchTheme />}>
                   Theme Color
                 </DropdownItem>
