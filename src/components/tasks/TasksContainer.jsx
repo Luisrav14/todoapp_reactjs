@@ -8,6 +8,7 @@ const TasksContainer = () => {
         <TaskCard />
         <TaskCard />
         <TaskCard />
+        <TaskCard />
 
         <div className="border-3 border-default-50 border-dashed hover:bg-default-50 hover:border-default-100 hover:shadow-lg p-20 rounded-lg cursor-pointer">
           <p>+ Add new task</p>
