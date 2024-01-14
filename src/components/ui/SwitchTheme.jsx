@@ -2,7 +2,7 @@ import { useTheme } from "next-themes";
 import { Switch } from "@nextui-org/react";
 import { HiMoon, HiSun } from "react-icons/hi";
 
-export const SwitchTheme = () => {
+const SwitchTheme = () => {
   const { theme, setTheme } = useTheme();
 
   return (

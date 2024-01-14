@@ -1,5 +1,7 @@
-import { Dropdown, Link, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
+import { HiChevronDown } from "react-icons/hi";
+
 import SwitchTheme from "./ui/SwitchTheme";
+import { Dropdown, Link, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 
 const NavbarDashboard = () => {
   return (
@@ -42,10 +44,10 @@ const NavbarDashboard = () => {
             </div>
           </div>
           <div className="flex">
-            <Dropdown backdrop="blur">
+            {/*  <Dropdown backdrop="blur">
               <DropdownTrigger>
                 <Button variant="flat" color="primary">
-                  Options
+                  Options <HiChevronDown />
                 </Button>
               </DropdownTrigger>
               <DropdownMenu variant="faded">
@@ -53,7 +55,8 @@ const NavbarDashboard = () => {
                   Theme Color
                 </DropdownItem>
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
+            <SwitchTheme />
           </div>
         </div>
       </div>
