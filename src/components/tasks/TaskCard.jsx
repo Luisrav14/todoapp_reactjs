@@ -18,28 +18,28 @@ const TaskCard = () => {
       >
         <div className="flex flex-col justify-between h-full">
           <div className="flex flex-col">
-            <p className="font-bold text-xl truncate mb-3">Lorem, ipsum dolor.</p>
-            <p className="font-normal text-sm line-clamp-2">
+            <p className="font-bold text-xl truncate mb-1">Lorem, ipsum dolor.</p>
+            <small className="text-xs font-normal mb-2 text-default-500">27/10/2023</small>
+
+            <p className="font-li text-sm line-clamp-2">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae dolore, adipisci, harum odio distinctio iste, error quidem illum
               corporis natus velit magnam esse non assumenda! Dolor totam ipsum excepturi cumque!
             </p>
           </div>
 
           <div className="mt-auto">
-            <span className="text-xs font-light mx-1">27/10/2023</span>
-
             <div className="flex justify-between mt-2">
-              <Chip color="warning" variant="solid">
+              <Chip color="warning" variant="solid" className="text-white">
                 In Progress
               </Chip>
-              <div className="flex gap-2">
+              <div className="flex items-center gap-2">
                 <Tooltip color="danger" content="Delete task" closeDelay={0}>
                   <span className="text-lg text-danger cursor-pointer active:opacity-50">
                     <HiTrash />
                   </span>
                 </Tooltip>
                 <Tooltip color="warning" content="Edit task" className="text-white" closeDelay={0}>
-                  <span className="text-lg text-warning cursor-pointer active:opacity-50">
+                  <span className="text-lg text-warning cursor-pointer active:opacity-50" onClick={onOpen}>
                     <HiPencilAlt />
                   </span>
                 </Tooltip>

@@ -1,6 +1,7 @@
 import TaskCard from "./TaskCard";
 import { CustomModal } from "../ui";
 import { useDisclosure, Input, Button } from "@nextui-org/react";
+import TaskForm from "./TaskForm";
 
 const TasksContainer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,19 +25,7 @@ const TasksContainer = () => {
       </div>
 
       <CustomModal title="New Task" isOpen={isOpen} onClose={onClose}>
-        <div className="">
-          <div className="mb-2">
-            <Input type="text" label="Title" />
-          </div>
-          <div className="mb-5">
-            <Input type="text" label="Description" />
-          </div>
-          <div className="flex justify-end">
-            <Button type="submit" variant="solid" color="primary">
-              Save
-            </Button>
-          </div>
-        </div>
+        <TaskForm />
       </CustomModal>
     </>
   );
