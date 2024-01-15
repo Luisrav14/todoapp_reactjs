@@ -44,18 +44,6 @@ const NavbarDashboard = () => {
             </div>
           </div>
           <div className="flex">
-            {/*  <Dropdown backdrop="blur">
-              <DropdownTrigger>
-                <Button variant="flat" color="primary">
-                  Options <HiChevronDown />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu variant="faded">
-                <DropdownItem key="new" endContent={<SwitchTheme />}>
-                  Theme Color
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown> */}
             <SwitchTheme />
           </div>
         </div>
