@@ -8,12 +8,16 @@ const TaskForm = () => {
 
   const { createTask } = useTaskStore();
 
-  const handleSubmit = (e) => {
-    createTask({ title, description });
+  const handleSubmit = () => {
+    createTask({
+      title,
+      description,
+      status: "pending", // status: pending | progress | completed
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       <div className="mb-2">
         <Input type="text" label="Title" onValueChange={setTitle} />
       </div>
@@ -21,11 +25,11 @@ const TaskForm = () => {
         <Input type="text" label="Description" onValueChange={setDescription} />
       </div>
       <div className="flex justify-end">
-        <Button type="submit" variant="solid" color="primary">
+        <Button type="submit" variant="solid" color="primary" onClick={handleSubmit}>
           Save
         </Button>
       </div>
-    </form>
+    </>
   );
 };
 
