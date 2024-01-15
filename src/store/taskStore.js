@@ -34,9 +34,7 @@ const useTaskStore = create((set) => ({
     try {
       const saveTask = await addDoc(tasksRef, newTask);
 
-      set((state) => ({ tasks: [...state.tasks, { ...newTask, id: saveTask.id }] }));
-
-      console.log(newTask);
+      set((state) => ({ tasks: [{ ...newTask, id: saveTask.id }, ...state.tasks] }));
 
       alert("Task saved");
     } catch (error) {
@@ -65,11 +63,12 @@ const useTaskStore = create((set) => ({
     set({ isLoading: true });
 
     try {
-      await firestore.collection("tasks").doc(taskId).delete();
+      const taskDocRef = doc(firestore, "tasks", taskId);
+      await deleteDoc(taskDocRef);
 
       alert("Task deleted");
     } catch (error) {
-      alert(error);
+      alert(error.message);
     }
 
     set({ isLoading: false });

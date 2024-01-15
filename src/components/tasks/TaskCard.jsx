@@ -1,9 +1,13 @@
-import { Chip, Tooltip, useDisclosure } from "@nextui-org/react";
 import { HiPencilAlt, HiTrash } from "react-icons/hi";
+import { Chip, Tooltip, useDisclosure } from "@nextui-org/react";
+
 import { CustomModal } from "../ui";
+import useTaskStore from "../../store/taskStore";
 
 const TaskCard = ({ task }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { deleteTask } = useTaskStore();
 
   return (
     <>
@@ -30,7 +34,7 @@ const TaskCard = ({ task }) => {
               </Chip>
               <div className="flex items-center gap-2">
                 <Tooltip color="danger" content="Delete task" closeDelay={0}>
-                  <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                  <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => deleteTask(task.id)}>
                     <HiTrash />
                   </span>
                 </Tooltip>
