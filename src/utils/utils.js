@@ -8,7 +8,7 @@ export const getTaskStatusVariables = (status) => {
       break;
     case "progress":
       color = "warning";
-      text = "Progress";
+      text = "In Progress";
       break;
     case "completed":
       color = "success";

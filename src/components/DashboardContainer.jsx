@@ -60,7 +60,7 @@ const DashboardContainer = ({ children }) => {
                 onClick={() => setStatusActive("progress")}
               >
                 <FaClock />
-                <span className="ms-3">Progress</span>
+                <span className="ms-3">In Progress</span>
               </button>
             </li>
             <li>
