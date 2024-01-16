@@ -1,8 +1,16 @@
-import { Modal, ModalContent, ModalHeader, ModalBody, useDisclosure, Input, Button } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
+import { useEffect } from "react";
+import useTaskStore from "../../store/taskStore";
 
 const CustomModal = ({ isOpen, onClose, title, children }) => {
+  const { isLoading } = useTaskStore();
+
+  useEffect(() => {
+    onClose();
+  }, [isLoading]);
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} placement="top-center">
+    <Modal isOpen={isOpen} onClose={onClose} placement="top" size="xl">
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
         <ModalBody>

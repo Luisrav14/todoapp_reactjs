@@ -1,10 +1,14 @@
 import { create } from "zustand";
-import { firestore } from "../config/firebase";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import toast from "react-hot-toast";
 
-const useTaskStore = create((set) => ({
+import { firestore } from "../config/firebase";
+import { collection, doc, addDoc, getDocs, deleteDoc, updateDoc } from "firebase/firestore";
+import moment from "moment";
+
+const useTaskStore = create((set, get) => ({
   tasks: [],
   isLoading: false,
+  taskActive: false,
 
   getTasks: async () => {
     set({ isLoading: true });
@@ -32,14 +36,21 @@ const useTaskStore = create((set) => ({
     const tasksRef = collection(firestore, "tasks");
 
     try {
+      newTask = {
+        ...newTask,
+        //status: "pending", // status: pending | progress | completed
+        createdAt: moment().format(),
+      };
+
       const saveTask = await addDoc(tasksRef, newTask);
 
       set((state) => ({ tasks: [{ ...newTask, id: saveTask.id }, ...state.tasks] }));
 
-      alert("Task saved");
+      toast.success("Task created");
     } catch (error) {
       console.error("Error saving task:", error);
-      alert("Error al guardar la tarea");
+
+      toast.error(`Error saving task: ${error}`);
     }
 
     set({ isLoading: false });
@@ -49,11 +60,19 @@ const useTaskStore = create((set) => ({
     set({ isLoading: true });
 
     try {
-      await firestore.collection("tasks").doc(taskId).update(updatedTask);
+      const taskDocRef = doc(firestore, "tasks", taskId);
 
-      alert("Task updated");
+      await updateDoc(taskDocRef, updatedTask);
+
+      const updatedTasksSnapshot = await getDocs(collection(firestore, "tasks"));
+      const updatedTasks = updatedTasksSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+      set({ tasks: updatedTasks });
+
+      toast.success("Task updated");
     } catch (error) {
-      alert(error);
+      console.log(error);
+      toast.error("Error updating task");
     }
 
     set({ isLoading: false });
@@ -66,12 +85,22 @@ const useTaskStore = create((set) => ({
       const taskDocRef = doc(firestore, "tasks", taskId);
       await deleteDoc(taskDocRef);
 
-      alert("Task deleted");
+      set((state) => ({ tasks: state.tasks.filter((t) => t.id != taskId) }));
+
+      toast.success("Task deleted");
     } catch (error) {
-      alert(error.message);
+      toast.error("Error deleting");
     }
 
     set({ isLoading: false });
+  },
+
+  setTaskActive: (task) => {
+    set({ taskActive: task });
+  },
+
+  clearTaskActive: () => {
+    set({ taskActive: false });
   },
 }));
 

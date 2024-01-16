@@ -1,35 +1,77 @@
-import { useState } from "react";
+import toast from "react-hot-toast";
+import { useState, useEffect } from "react";
 import { Input, Button } from "@nextui-org/react";
+
 import useTaskStore from "../../store/taskStore";
 
 const TaskForm = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const { createTask, updateTask, taskActive, isLoading } = useTaskStore();
 
-  const { createTask } = useTaskStore();
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+  });
 
-  const handleSubmit = () => {
-    createTask({
-      title,
-      description,
-      status: "pending", // status: pending | progress | completed
+  useEffect(() => {
+    if (taskActive) {
+      setFormData({
+        title: taskActive.title || "",
+        description: taskActive.description || "",
+      });
+    }
+  }, [taskActive]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.title.trim() || !formData.description.trim()) {
+      toast.error("Complete all required fields");
+      return;
+    }
+
+    const { title, description, status } = formData;
+
+    if (taskActive) {
+      updateTask(taskActive.id, {
+        id: taskActive.id,
+        title,
+        description,
+      });
+    } else {
+      createTask({
+        title,
+        description,
+        status: "pending",
+      });
+    }
+
+    setFormData({
+      title: "",
+      description: "",
     });
   };
 
   return (
-    <>
-      <div className="mb-2">
-        <Input type="text" label="Title" onValueChange={setTitle} />
+    <form onSubmit={handleSubmit}>
+      <div className="mb-3">
+        <Input type="text" label="Title" value={formData.title} onValueChange={(value) => setFormData({ ...formData, title: value })} isRequired />
       </div>
-      <div className="mb-5">
-        <Input type="text" label="Description" onValueChange={setDescription} />
+      <div className="mb-3">
+        <Input
+          type="text"
+          label="Description"
+          value={formData.description}
+          onValueChange={(value) => setFormData({ ...formData, description: value })}
+          isRequired
+        />
       </div>
+
       <div className="flex justify-end">
-        <Button type="submit" variant="solid" color="primary" onClick={handleSubmit}>
-          Save
+        <Button type="submit" variant="solid" color="primary" isLoading={isLoading}>
+          {taskActive ? "Update" : "Save"}
         </Button>
       </div>
-    </>
+    </form>
   );
 };
 
