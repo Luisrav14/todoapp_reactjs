@@ -9,6 +9,7 @@ const useTaskStore = create((set, get) => ({
   tasks: [],
   isLoading: false,
   taskActive: false,
+  statusActive: false,
 
   getTasks: async () => {
     set({ isLoading: true });
@@ -101,6 +102,14 @@ const useTaskStore = create((set, get) => ({
 
   clearTaskActive: () => {
     set({ taskActive: false });
+  },
+
+  setStatusActive: (status) => {
+    set({ statusActive: status });
+  },
+
+  clearStatusActive: () => {
+    set({ statusActive: false });
   },
 }));
 

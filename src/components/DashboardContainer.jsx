@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { FaCheck, FaClock, FaListUl, FaTasks } from "react-icons/fa";
 
 import Sidebar from "./Sidebar";
 import NavbarDashboard from "./Navbar";
-import { FaCheck, FaClock, FaListUl, FaTasks } from "react-icons/fa";
+import useTaskStore from "../store/taskStore";
 
 const DashboardContainer = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+
+  const { setStatusActive, clearStatusActive, tasks } = useTaskStore();
+
+  const pendingTasks = tasks.filter((task) => task.status === "pending").length;
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -32,31 +37,43 @@ const DashboardContainer = ({ children }) => {
         <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-default-50">
           <ul className="space-y-2 font-medium">
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <button
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full"
+                onClick={() => clearStatusActive()}
+              >
                 <FaTasks />
                 <span className="ms-3">All Tasks</span>
-              </a>
+              </button>
             </li>
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <button
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full"
+                onClick={() => setStatusActive("completed")}
+              >
                 <FaCheck />
-                <span className="flex-1 ms-3 whitespace-nowrap">Completed</span>
-              </a>
+                <span className="ms-3">Completed</span>
+              </button>
             </li>
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <button
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full"
+                onClick={() => setStatusActive("progress")}
+              >
                 <FaClock />
-                <span className="flex-1 ms-3 whitespace-nowrap">Progress</span>
-              </a>
+                <span className="ms-3">Progress</span>
+              </button>
             </li>
             <li>
-              <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <button
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full"
+                onClick={() => setStatusActive("pending")}
+              >
                 <FaListUl />
-                <span className="flex-1 ms-3 whitespace-nowrap">To Do</span>
-                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-600 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                  3
+                <span className="ms-3">To Do</span>
+                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-danger bg-blue-100 rounded-full dark:bg-danger dark:text-blue-300">
+                  {pendingTasks}
                 </span>
-              </a>
+              </button>
             </li>
           </ul>
         </div>
