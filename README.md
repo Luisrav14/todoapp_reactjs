@@ -12,6 +12,6 @@ Este es un simple proyecto de una aplicación de lista de tareas (todo app) cons
 ## Tecnologías Utilizadas
 
 - React
-- Firebase (Firestore, Firebase Authentication)
+- Firebase (Firestore)
 
 
